@@ -44,7 +44,6 @@ namespace Path_Guiding_System
         private readonly List<Vector3> currentPositions = new List<Vector3>(100);
         private readonly List<Vector3> targetPositions = new List<Vector3>(100);
 
-        // Public properties to set transforms externally
         public Transform TargetA
         {
             get => targetATransform;
@@ -224,7 +223,6 @@ namespace Path_Guiding_System
             targetPositions.Clear();
             smoothedPathCache.Clear();
 
-            // Elevate and smooth the path
             Vector3[] elevatedPoints = new Vector3[pathPoints.Length];
             for (int i = 0; i < pathPoints.Length; i++)
             {
@@ -234,7 +232,6 @@ namespace Path_Guiding_System
             SmoothPath(elevatedPoints, smoothedPathCache);
             targetPositions.AddRange(smoothedPathCache);
 
-            // Initialize current positions if needed
             if (currentPositions.Count == 0)
             {
                 currentPositions.AddRange(targetPositions);
@@ -266,7 +263,6 @@ namespace Path_Guiding_System
         {
             if (currentPositions.Count == 0 || targetPositions.Count == 0) return;
 
-            // Ensure lists have same size
             while (currentPositions.Count < targetPositions.Count)
                 currentPositions.Add(targetPositions[currentPositions.Count]);
             while (currentPositions.Count > targetPositions.Count)
